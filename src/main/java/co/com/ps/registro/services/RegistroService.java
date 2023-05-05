@@ -44,4 +44,18 @@ public class RegistroService implements  IRegistroService {
 
         return r;
     }
+
+    @Override
+    @Transactional()
+    public Registro actualizar(Registro registro) throws Exception {
+
+        Registro resultado = consultar(registro.getId());
+
+        if (registro.getRegistro() != null && !registro.getRegistro().equals("")) {
+            resultado.setRegistro(registro.getRegistro());
+        }
+
+        return registroRepository.save(registro);
+    }
+
 }

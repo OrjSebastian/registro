@@ -53,8 +53,17 @@ public class RegistroController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Registro> actualizar(@RequestBody Registro registro) {
-        return ResponseEntity.ok(new Registro());
+    public ResponseEntity<?> actualizar(@RequestBody Registro registro) {
+        try {
+            Registro resultado=  iRegistroService.actualizar(registro);
+
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(resultado);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getCause() + "", e.getMessage()));
+        }
     }
 
     @DeleteMapping("/{id}")
