@@ -9,4 +9,6 @@ public interface IRegistroService {
     Registro consultar(Long id) throws Exception;
 
     Registro actualizar(Registro registro) throws Exception;
+
+    Registro borrar(Long id) throws  Exception;
 }

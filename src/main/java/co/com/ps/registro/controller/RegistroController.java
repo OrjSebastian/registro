@@ -67,10 +67,17 @@ public class RegistroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Registro> borrar(@PathVariable("id") Long id) {
-        Registro registro = new Registro();
-        registro.setId(id);
-        return ResponseEntity.ok(registro);
+    public ResponseEntity<?> borrar(@PathVariable("id") Long id) {
+        try {
+            Registro resultado=  iRegistroService.borrar(id);
+
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(resultado);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getCause() + "", e.getMessage()));
+        }
     }
 
 }

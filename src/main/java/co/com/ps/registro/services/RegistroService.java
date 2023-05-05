@@ -58,4 +58,14 @@ public class RegistroService implements  IRegistroService {
         return registroRepository.save(registro);
     }
 
+    @Override
+    public Registro borrar(Long id) throws Exception {
+        if (registroRepository.existsById(id)) {
+            registroRepository.deleteById(id);
+        } else {
+            throw new Exception("Id invalido");
+        }
+        return null;
+    }
+
 }
